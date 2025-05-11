@@ -100,6 +100,11 @@ public class Program_3 extends javax.swing.JFrame {
         Clear_BTN.setForeground(new java.awt.Color(51, 0, 153));
         Clear_BTN.setText("CLEAR");
         Clear_BTN.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        Clear_BTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Clear_BTNActionPerformed(evt);
+            }
+        });
         getContentPane().add(Clear_BTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 430, 150, 60));
 
         Submit_BTN.setBackground(new java.awt.Color(102, 51, 255));
@@ -140,7 +145,37 @@ public class Program_3 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Submit_BTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit_BTNActionPerformed
-        // TODO add your handling code here:
+        try {
+               String[] fruits = {
+                   "apple", "orange", "banana", "grape", "mango", "kiwi", "pineapple",
+                   "strawberry", "blueberry", "watermelon", "peach", "pear", "papaya",
+                   "cherry", "fig", "plum", "apricot", "lime", "lemon", "coconut"
+               };
+
+               String search = Input.getText().trim().toLowerCase();
+
+               if (search.isEmpty()) {
+                   throw new IllegalArgumentException("Input cannot be empty.");
+               }
+
+               boolean found = false;
+               for (int i = 0; i < fruits.length; i++) {
+                   if (fruits[i].equalsIgnoreCase(search)) {
+                       Output.setText(search + " found at index " + i);
+                       found = true;
+                       break;
+                   }
+               }
+
+               if (!found) {
+                   Output.setText(search + " not found in the array.");
+               }
+
+           } catch (IllegalArgumentException ex) {
+               Output.setText(ex.getMessage()); 
+           } catch (Exception ex) {
+               Output.setText("An error occurred: " + ex.getMessage());
+           }
     }//GEN-LAST:event_Submit_BTNActionPerformed
 
     private void Submit_BTN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit_BTN2ActionPerformed
@@ -152,6 +187,11 @@ public class Program_3 extends javax.swing.JFrame {
         main.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Dashboard_BTNActionPerformed
+
+    private void Clear_BTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clear_BTNActionPerformed
+        Input.setText("");
+        Output.setText("");
+    }//GEN-LAST:event_Clear_BTNActionPerformed
 
     /**
      * @param args the command line arguments

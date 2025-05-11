@@ -7,6 +7,9 @@
  *
  * @author user
  */
+import javax.swing.JOptionPane;
+import java.util.Arrays;
+
 public class Program_4 extends javax.swing.JFrame {
 
     /**
@@ -34,6 +37,7 @@ public class Program_4 extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         Input = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         Dashboard_BTN = new javax.swing.JButton();
         Clear_BTN = new javax.swing.JButton();
@@ -50,7 +54,7 @@ public class Program_4 extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Sitka Text", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 0, 153));
-        jLabel4.setText("Sorted array:");
+        jLabel4.setText("Reversed Array:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 250, 20));
 
         Sorted_Output.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 0, 153)));
@@ -59,7 +63,7 @@ public class Program_4 extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Sitka Text", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 0, 153));
-        jLabel5.setText("Original array:");
+        jLabel5.setText("Original Array:");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 250, 20));
 
         Orig_Output.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 0, 153)));
@@ -74,18 +78,23 @@ public class Program_4 extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Sitka Text", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 0, 153));
         jLabel3.setText("INPUT");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 60, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 60, 20));
 
         Input.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 0, 153)));
         Input.setCaretColor(new java.awt.Color(51, 0, 153));
         jPanel1.add(Input, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 220, 40));
+
+        jLabel6.setFont(new java.awt.Font("Sitka Text", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 0, 153));
+        jLabel6.setText("Enter size of an Array:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 250, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 280, 170));
 
         jLabel2.setFont(new java.awt.Font("Sitka Text", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("SORTING AN ARRAY");
+        jLabel2.setText("REVERSING AN ARRAY");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 450, 50));
 
         Dashboard_BTN.setBackground(new java.awt.Color(102, 0, 102));
@@ -105,6 +114,11 @@ public class Program_4 extends javax.swing.JFrame {
         Clear_BTN.setForeground(new java.awt.Color(51, 0, 153));
         Clear_BTN.setText("CLEAR");
         Clear_BTN.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        Clear_BTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Clear_BTNActionPerformed(evt);
+            }
+        });
         getContentPane().add(Clear_BTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 430, 150, 60));
 
         Submit_BTN.setBackground(new java.awt.Color(102, 51, 255));
@@ -145,7 +159,36 @@ public class Program_4 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Submit_BTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit_BTNActionPerformed
-        // TODO add your handling code here:
+
+        try {
+            int size = Integer.parseInt(Input.getText());
+            double[] Orig = new double[size];
+            double[] Sorted = new double[size];
+
+            for (int i = 0; i < size; i++) {
+                Orig[i] = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter Number " + (i + 1)));
+            }
+
+            for (int i = 0; i < size; i++) {
+                Sorted[i] = Orig[i];
+            }
+
+            for (int i = 0; i < size - 1; i++) {
+                for (int j = 0; j < size - 1 - i; j++) {
+                    if (Sorted[j] > Sorted[j + 1]) {
+                        double temp = Sorted[j];
+                        Sorted[j] = Sorted[j + 1];
+                        Sorted[j + 1] = temp;
+                    }
+                }
+            }
+
+            Orig_Output.setText(Arrays.toString(Orig));
+            Sorted_Output.setText(Arrays.toString(Sorted));
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Input Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_Submit_BTNActionPerformed
 
     private void Submit_BTN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit_BTN2ActionPerformed
@@ -157,6 +200,12 @@ public class Program_4 extends javax.swing.JFrame {
         main.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Dashboard_BTNActionPerformed
+
+    private void Clear_BTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clear_BTNActionPerformed
+        Input.setText("");
+        Orig_Output.setText("");
+        Sorted_Output.setText("");
+    }//GEN-LAST:event_Clear_BTNActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,6 +256,7 @@ public class Program_4 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

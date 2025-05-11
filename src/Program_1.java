@@ -7,6 +7,7 @@
  *
  * @author user
  */
+import javax.swing.JOptionPane;
 public class Program_1 extends javax.swing.JFrame {
 
     /**
@@ -29,11 +30,12 @@ public class Program_1 extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         Average_Output = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         Sum_Output = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         Input = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         Dashboard_BTN = new javax.swing.JButton();
         Clear_BTN = new javax.swing.JButton();
@@ -56,14 +58,14 @@ public class Program_1 extends javax.swing.JFrame {
         Average_Output.setCaretColor(new java.awt.Color(51, 0, 153));
         jPanel2.add(Average_Output, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 220, 40));
 
-        jLabel5.setFont(new java.awt.Font("Sitka Text", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(51, 0, 153));
-        jLabel5.setText("Sum of the array elements:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 250, 20));
-
         Sum_Output.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 0, 153)));
         Sum_Output.setCaretColor(new java.awt.Color(51, 0, 153));
         jPanel2.add(Sum_Output, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 220, 40));
+
+        jLabel6.setFont(new java.awt.Font("Sitka Text", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 0, 153));
+        jLabel6.setText("Sum of the array elements:");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 250, 20));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 190, 280, 180));
 
@@ -73,11 +75,21 @@ public class Program_1 extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Sitka Text", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 0, 153));
         jLabel3.setText("INPUT");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 60, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 60, 20));
 
         Input.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 0, 153)));
         Input.setCaretColor(new java.awt.Color(51, 0, 153));
+        Input.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InputActionPerformed(evt);
+            }
+        });
         jPanel1.add(Input, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 220, 40));
+
+        jLabel5.setFont(new java.awt.Font("Sitka Text", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(51, 0, 153));
+        jLabel5.setText("Enter Array Size:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 250, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 280, 170));
 
@@ -104,6 +116,11 @@ public class Program_1 extends javax.swing.JFrame {
         Clear_BTN.setForeground(new java.awt.Color(51, 0, 153));
         Clear_BTN.setText("CLEAR");
         Clear_BTN.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        Clear_BTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Clear_BTNActionPerformed(evt);
+            }
+        });
         getContentPane().add(Clear_BTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 430, 150, 60));
 
         Submit_BTN.setBackground(new java.awt.Color(102, 51, 255));
@@ -137,7 +154,26 @@ public class Program_1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Submit_BTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit_BTNActionPerformed
-        // TODO add your handling code here:
+        try {
+            int size = Integer.parseInt(Input.getText());
+            double[] Array = new double[size];
+            double Sum = 0, Average = 0;
+
+            for (int i = 0; i < size; i++) {
+                Array[i] = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter Number " + (i+1)));
+                Sum += Array[i];
+            }
+
+            Average = Sum / size;
+
+            Sum_Output.setText(String.valueOf(Sum));
+            Average_Output.setText(String.valueOf(Average));
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid input. Please enter numbers only.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "An unexpected error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_Submit_BTNActionPerformed
 
     private void Submit_BTN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit_BTN2ActionPerformed
@@ -149,6 +185,16 @@ public class Program_1 extends javax.swing.JFrame {
         main.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Dashboard_BTNActionPerformed
+
+    private void Clear_BTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clear_BTNActionPerformed
+        Input.setText("");
+        Sum_Output.setText("");
+        Average_Output.setText("");
+    }//GEN-LAST:event_Clear_BTNActionPerformed
+
+    private void InputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_InputActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,6 +244,7 @@ public class Program_1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
